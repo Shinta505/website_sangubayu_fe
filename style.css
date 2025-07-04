@@ -1,0 +1,43 @@
+/* Apply Poppins font to the body */
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow: hidden;
+    /* Hide scrollbars caused by large gradient */
+}
+
+/* LOGIN STYLE */
+/* Animated Gradient Background */
+.animated-gradient {
+    background: linear-gradient(300deg, #0d422d, #177245, #20a058);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Glassmorphism effect for the form container */
+.glass-effect {
+    background: rgba(0, 0, 0, 0.2);
+    /* Darker semi-transparent background */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Custom focus style for inputs */
+.input-focus-glow:focus {
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.5);
+    /* Emerald glow */
+}

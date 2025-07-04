@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Admin - Desa Sangubanyu</title>
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons for form icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="animated-gradient">
+
+    <div class="flex items-center justify-center min-h-screen p-4">
+        
+        <!-- Login Card -->
+        <div class="w-full max-w-md">
+            <div id="formContainer" class="glass-effect shadow-2xl rounded-2xl p-8 text-white transition-all duration-500">
+                
+                <!-- Header with Logo -->
+                <div class="text-center mb-10">
+                    <div class="inline-block bg-black/20 p-4 rounded-full mb-4 border border-white/10">
+                        <i data-lucide="leaf" class="w-10 h-10 text-emerald-300"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold tracking-wider text-shadow">Admin Panel</h1>
+                    <p class="text-emerald-200 text-sm font-light">Desa Sangubanyu</p>
+                </div>
+
+                <form id="loginForm" novalidate>
+                    <!-- Username Input -->
+                    <div class="mb-5">
+                        <label for="username" class="sr-only">Username</label>
+                        <div class="relative">
+                            <i data-lucide="user-circle" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username"
+                                placeholder="Username"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="mb-5">
+                        <label for="password" class="sr-only">Password</label>
+                        <div class="relative">
+                            <i data-lucide="key-round" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                name="password"
+                                placeholder="Password"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
+                                required
+                            >
+                            <button type="button" id="togglePassword" class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-300 hover:text-white transition">
+                                <i id="eyeIcon" data-lucide="eye" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error Message Box -->
+                    <div id="messageBox" class="hidden p-3 mb-4 text-sm rounded-lg text-center" role="alert">
+                        <span class="font-medium" id="messageText"></span>
+                    </div>
+
+                    <!-- Login Button -->
+                    <button 
+                        type="submit"
+                        class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold p-3.5 rounded-lg mt-6 hover:from-emerald-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-emerald-300/50 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-500/30"
+                    >
+                        MASUK
+                    </button>
+                </form>
+                
+                <div class="text-center text-gray-400/80 mt-12 text-xs tracking-wide">
+                    &copy; 2025 - Pemerintah Desa Sangubanyu
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
