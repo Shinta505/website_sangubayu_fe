@@ -41,3 +41,43 @@ body {
     box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.5);
     /* Emerald glow */
 }
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    /* Jarak antara ikon dan teks */
+    padding: 0.85rem 1.5rem;
+    /* Padding vertikal dan horizontal */
+    margin: 0.25rem 1rem;
+    /* Margin atas/bawah dan kiri/kanan */
+    border-radius: 0.5rem;
+    /* Sudut membulat */
+    font-weight: 500;
+    color: #E5E7EB;
+    /* Warna teks (abu-abu muda) */
+    transition: all 0.2s ease-in-out;
+    border-right: 3px solid transparent;
+    /* Border transparan untuk efek hover */
+}
+
+.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: white;
+    border-right-color: #34d399;
+    /* Warna border (emerald) saat hover */
+}
+
+/* Style untuk link yang sedang aktif */
+.sidebar-link-active {
+    background-color: rgba(16, 185, 129, 0.2);
+    /* Latar belakang (emerald transparan) */
+    color: white;
+    font-weight: 600;
+    border-right-color: #10b981;
+    /* Warna border (emerald solid) */
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}

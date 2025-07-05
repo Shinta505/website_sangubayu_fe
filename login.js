@@ -1,4 +1,4 @@
-// LOGIN SCRIPT (REVISED FOR BACKEND INTEGRATION)
+// LOGIN SCRIPT
 document.addEventListener('DOMContentLoaded', function () {
     // --- Initialize Lucide Icons ---
     lucide.createIcons();
@@ -28,20 +28,20 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Function to show messages ---
     function showMessage(type, message) {
         messageBox.classList.remove('hidden', 'bg-red-500/80', 'bg-green-500/80', 'text-white');
-        
+
         if (type === 'success') {
             messageBox.classList.add('bg-green-500/80', 'text-white');
         } else if (type === 'error') {
             messageBox.classList.add('bg-red-500/80', 'text-white');
         }
-        
+
         messageText.textContent = message;
     }
 
     // --- Form Submission Logic ---
     loginForm.addEventListener('submit', async function (event) {
         event.preventDefault();
-        
+
         const enteredUsername = usernameInput.value.trim();
         const enteredPassword = passwordInput.value.trim();
 
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 setTimeout(() => {
                     // Ganti dengan halaman dashboard admin Anda
-                    // window.location.href = '/admin/dashboard.html'; 
+                    window.location.href = 'html/struktur-organisasi.html';
                     console.log('Redirecting to admin dashboard.');
                     loginForm.reset();
                     messageBox.classList.add('hidden');
