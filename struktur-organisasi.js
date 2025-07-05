@@ -59,7 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener untuk tombol konfirmasi (Ya)
     if (confirmLogoutBtn) {
         confirmLogoutBtn.addEventListener('click', () => {
-            // Lakukan proses logout
+            // 1. Hapus token dari localStorage
+            localStorage.removeItem('authToken');
+
+            // 2. Tampilkan pesan dan alihkan ke halaman login
+            alert('Anda telah berhasil logout.');
             window.location.href = '../index.html';
         });
     }
