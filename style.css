@@ -1,7 +1,7 @@
 /* Apply Poppins font to the body */
 body {
     font-family: 'Poppins', sans-serif;
-    overflow: hidden;
+    overflow: auto;
     /* Hide scrollbars caused by large gradient */
 }
 
