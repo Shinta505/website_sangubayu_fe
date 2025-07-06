@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             const response = await fetch(`${API_PRODUK}/${id}`);
             if (!response.ok) {
-                window.location.href = 'daftar-produk.html';
+                window.location.href = 'kelola-produk-umkm.html';
                 return;
             };
             const produk = await response.json();

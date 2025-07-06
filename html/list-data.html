@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Data - Desa Sangubanyu</title>
+    <script src="../auth.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="animated-gradient">
+
+    <button id="burgerBtn"
+        class="fixed top-5 left-5 z-[60] p-2 bg-black/20 rounded-md border border-white/10 hover:bg-black/40 transition-colors duration-300">
+        <i data-lucide="menu" class="w-6 h-6 text-white"></i>
+    </button>
+    <div id="overlay" class="fixed inset-0 bg-black/60 z-40 hidden"></div>
+
+    <aside id="sidebar"
+        class="fixed top-0 left-0 w-72 h-screen glass-effect z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-5 text-center border-b border-white/10">
+            <h2 class="text-xl font-bold text-white tracking-wider">ADMIN PANEL</h2>
+            <p class="text-sm text-emerald-300">Desa Sangubanyu</p>
+        </div>
+        <nav class="mt-8">
+            <ul>
+                <li><a href="struktur-organisasi.html" class="sidebar-link"><i data-lucide="network"
+                            class="w-5 h-5"></i><span>Kelola Struktur Organisasi</span></a></li>
+                <li><a href="kelola-umkm.html" class="sidebar-link"><i data-lucide="store"
+                            class="w-5 h-5"></i><span>Kelola UMKM</span></a></li>
+                <li><a href="kelola-produk-umkm.html" class="sidebar-link"><i data-lucide="package"
+                            class="w-5 h-5"></i><span>Kelola Produk UMKM</span></a></li>
+                <li><a href="list-data.html" class="sidebar-link sidebar-link-active"><i data-lucide="list"
+                            class="w-5 h-5"></i><span>List Struktur & UMKM</span></a></li>
+                <li class="px-6 my-4">
+                    <hr class="border-white/10">
+                </li>
+                <li><a href="#" id="logoutBtn"
+                        class="sidebar-link text-rose-400 hover:bg-rose-500/20 hover:border-rose-500"><i
+                            data-lucide="log-out" class="w-5 h-5"></i><span>Logout</span></a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="min-h-screen p-4 transition-all duration-300 ease-in-out" id="main-content">
+        <div class="container mx-auto">
+            <div class="glass-effect shadow-2xl rounded-2xl p-6 md:p-8 text-white">
+                <div class="border-b border-white/10 mb-6">
+                    <nav class="flex space-x-4" aria-label="Tabs">
+                        <button id="tab-struktur"
+                            class="tab-button active-tab group inline-flex items-center py-3 px-4 text-sm font-medium">
+                            <i data-lucide="network" class="mr-2"></i>
+                            Struktur Organisasi
+                        </button>
+                        <button id="tab-umkm"
+                            class="tab-button group inline-flex items-center py-3 px-4 text-sm font-medium">
+                            <i data-lucide="store" class="mr-2"></i>
+                            UMKM & Produk
+                        </button>
+                    </nav>
+                </div>
+
+                <div>
+                    <div id="content-struktur">
+                        <div class="flex justify-between items-center mb-5">
+                            <h2 class="text-2xl font-bold">Daftar Struktur Organisasi</h2>
+                            <a href="struktur-organisasi.html"
+                                class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center">
+                                <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah
+                            </a>
+                        </div>
+                        <div id="struktur-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                    </div>
+
+                    <div id="content-umkm" class="hidden">
+                        <div class="flex justify-between items-center mb-5">
+                            <h2 class="text-2xl font-bold">Daftar UMKM</h2>
+                            <a href="kelola-umkm.html"
+                                class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center">
+                                <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah UMKM
+                            </a>
+                        </div>
+                        <div id="umkm-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="umkmDetailModal"
+            class="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 backdrop-blur-sm hidden">
+            <div class="glass-effect rounded-2xl p-6 md:p-8 text-white w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto scale-95 opacity-0 transition-all duration-300"
+                id="umkmModalDialog">
+                <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+                    <h3 class="text-2xl font-bold" id="detailNamaUmkm">Nama UMKM</h3>
+                    <button id="closeUmkmModalBtn" class="p-1 hover:bg-white/10 rounded-full">
+                        <i data-lucide="x" class="w-6 h-6"></i>
+                    </button>
+                </div>
+                <div id="umkmDetailContent">
+                </div>
+            </div>
+        </div>
+
+
+    </main>
+
+    <div id="deleteModal"
+        class="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 backdrop-blur-sm hidden">
+        <div class="glass-effect rounded-2xl p-8 text-white text-center w-full max-w-sm mx-4 scale-95 opacity-0 transition-all duration-300"
+            id="deleteModalDialog">
+            <i data-lucide="alert-triangle" class="w-16 h-16 text-amber-400 mx-auto mb-4"></i>
+            <h3 class="text-2xl font-bold mb-2">Konfirmasi Hapus</h3>
+            <p class="text-gray-300 mb-8" id="deleteMessage">Apakah Anda yakin ingin menghapus data ini?</p>
+            <div class="flex justify-center gap-4">
+                <button id="cancelDeleteBtn"
+                    class="py-2.5 px-8 bg-gray-500/50 hover:bg-gray-500/80 text-white font-semibold rounded-lg transition-colors duration-200">Tidak</button>
+                <button id="confirmDeleteBtn"
+                    class="py-2.5 px-10 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition-colors duration-200">Ya,
+                    Hapus</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="logoutModal"
+        class="fixed inset-0 z-[70] flex items-center justify-center bg-black/70 backdrop-blur-sm hidden">
+        <div class="glass-effect rounded-2xl p-8 text-white text-center w-full max-w-sm mx-4 scale-95 opacity-0 transition-all duration-300"
+            id="modalDialog">
+            <i data-lucide="alert-triangle" class="w-16 h-16 text-amber-400 mx-auto mb-4"></i>
+            <h3 class="text-2xl font-bold mb-2">Konfirmasi Logout</h3>
+            <p class="text-gray-300 mb-8">Apakah Anda yakin ingin keluar?</p>
+            <div class="flex justify-center gap-4">
+                <button id="cancelLogoutBtn"
+                    class="py-2.5 px-8 bg-gray-500/50 hover:bg-gray-500/80 text-white font-semibold rounded-lg transition-colors duration-200">Tidak</button>
+                <button id="confirmLogoutBtn"
+                    class="py-2.5 px-10 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-lg transition-colors duration-200">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../list-data.js"></script>
+</body>
+
+</html>
