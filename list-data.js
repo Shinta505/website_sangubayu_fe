@@ -197,6 +197,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         <p class="text-emerald-300 text-center text-sm mb-4">${item.nama_jabatan}</p>
                     </div>
                     <div class="flex justify-center gap-3 mt-4">
+                        <a href="update-struktur-organisasi.html?id=${item.id_struktur}" class="edit-btn bg-yellow-500/80 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 flex-grow text-center">Edit</a>
                         <button class="delete-btn bg-rose-500/80 hover:bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200 flex-grow" data-id="${item.id_struktur}" data-name="${item.nama_pejabat}">Hapus</button>
                     </div>
                 `;
@@ -237,11 +238,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 card.innerHTML = `
                     <div class="flex-grow">
                         <h3 class="text-xl font-bold">${item.nama_umkm}</h3>
-                        <p class="text-emerald-300 text-sm mb-3">Oleh: ${item.pemilik_umkm}</p>
+                        <p class="text-emerald-300 text-sm mb-3">Pemilik: ${item.pemilik_umkm}</p>
                         <p class="text-gray-300 text-xs line-clamp-3">${item.deskripsi_umkm || 'Tidak ada deskripsi.'}</p>
                     </div>
                     <div class="flex justify-end gap-3 mt-4">
                         <button class="detail-btn bg-sky-500/80 hover:bg-sky-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200" data-id="${item.id_umkm}">Detail</button>
+                        <a href="update-umkm.html?id=${item.id_umkm}" class="edit-btn bg-yellow-500/80 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Edit</a>
                         <button class="delete-btn bg-rose-500/80 hover:bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200" data-id="${item.id_umkm}" data-name="${item.nama_umkm}">Hapus</button>
                     </div>
                 `;
@@ -302,6 +304,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <span class="text-xs bg-gray-500/50 px-2 py-1 rounded-full">Stok: ${p.stok_produk}</span>
                             </div>
                             <div class="flex justify-end gap-2 mt-4">
+                                <a href="kelola-produk-umkm.html?id=${p.id_produk}" class="edit-produk-btn text-xs bg-yellow-500/80 hover:bg-yellow-600 text-white font-semibold py-2 px-3 rounded-lg transition duration-200">Edit</a>
                                 <button class="delete-produk-btn text-xs bg-rose-500/80 hover:bg-rose-600 text-white font-semibold py-2 px-3 rounded-lg transition duration-200" data-id="${p.id_produk}" data-name="${p.nama_produk}">Hapus</button>
                             </div>
                         </div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Struktur Organisasi - Desa Sangubanyu</title>
+
+    <script src="../auth.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body class="animated-gradient">
+
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-md">
+            <div id="formContainer"
+                class="glass-effect shadow-2xl rounded-2xl p-8 text-white transition-all duration-500">
+                <div class="text-center mb-10">
+                    <div class="inline-block bg-black/20 p-4 rounded-full mb-4 border border-white/10">
+                        <i data-lucide="network" class="w-10 h-10 text-emerald-300"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold tracking-wider text-shadow">Update Struktur Organisasi</h1>
+                    <p class="text-emerald-200 text-sm font-light">Ubah Data Pejabat</p>
+                </div>
+
+                <form id="strukturForm" novalidate>
+                    <input type="hidden" id="id_struktur" name="id_struktur">
+                    <div class="mb-5">
+                        <label for="nama_jabatan" class="sr-only">Nama Jabatan</label>
+                        <div class="relative">
+                            <i data-lucide="briefcase"
+                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input type="text" id="nama_jabatan" name="nama_jabatan"
+                                placeholder="Nama Jabatan (e.g., Kepala Desa)"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="nama_pejabat" class="sr-only">Nama Pejabat</label>
+                        <div class="relative">
+                            <i data-lucide="user"
+                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input type="text" id="nama_pejabat" name="nama_pejabat" placeholder="Nama Lengkap Pejabat"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
+                                required>
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="foto_pejabat" class="sr-only">Foto Pejabat</label>
+                        <div class="relative">
+                            <i data-lucide="image"
+                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input type="file" id="foto_pejabat" name="foto_pejabat" class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow text-sm
+                                file:mr-4 file:py-2 file:px-4
+                                file:rounded-full file:border-0
+                                file:text-sm file:font-semibold
+                                file:bg-emerald-500 file:text-white
+                                hover:file:bg-emerald-600" accept="image/*">
+                        </div>
+                        <p class="text-xs text-gray-300 mt-2 ml-1">Kosongkan jika tidak ingin mengubah foto.</p>
+                        <img id="foto-preview" src="" alt="Preview Foto" class="mt-4 rounded-lg max-h-40 hidden">
+                    </div>
+                    <div id="messageBox" class="hidden p-3 mb-4 text-sm rounded-lg text-center" role="alert">
+                        <span class="font-medium" id="messageText"></span>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold p-3.5 rounded-lg mt-6 hover:from-yellow-600 hover:to-orange-700 focus:outline-none focus:ring-4 focus:ring-yellow-300/50 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-yellow-500/30">
+                        UPDATE DATA
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../update-struktur-organisasi.js"></script>
+</body>
+</html>
