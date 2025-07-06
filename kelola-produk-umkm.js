@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Simpan pesan sukses di localStorage untuk ditampilkan setelah redirect
             localStorage.setItem('actionMessage', result.message);
-            window.location.href = 'daftar-produk.html';
+            window.location.href = 'kelola-produk-umkm.html';
 
         } catch (error) {
             showMessage('error', error.message);

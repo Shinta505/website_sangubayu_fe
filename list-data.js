@@ -40,9 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const umkmDetailContent = document.getElementById('umkmDetailContent');
 
     let itemToDelete = { type: null, id: null };
+    // Variabel untuk menyimpan ID UMKM yang sedang dibuka di modal
+    let currentOpenUmkmId = null;
 
 
-    // --- Fungsi Sidebar & Logout (Sama seperti sebelumnya) ---
+    // --- Fungsi Sidebar & Logout (Tidak ada perubahan) ---
     const toggleSidebar = () => {
         sidebar.classList.toggle('-translate-x-full');
         overlay.classList.toggle('hidden');
@@ -84,6 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     cancelDeleteBtn.addEventListener('click', hideDeleteModal);
 
+    // --- MODIFIKASI: Menambahkan logika hapus untuk 'produk' ---
     confirmDeleteBtn.addEventListener('click', async () => {
         if (!itemToDelete.type || !itemToDelete.id) return;
 
@@ -91,15 +94,28 @@ document.addEventListener('DOMContentLoaded', function () {
         let url = '';
         if (type === 'struktur') url = `${API_STRUKTUR}/${id}`;
         if (type === 'umkm') url = `${API_UMKM}/${id}`;
+        if (type === 'produk') url = `${API_PRODUK}/${id}`; // URL untuk hapus produk
 
         try {
             const response = await fetch(url, { method: 'DELETE' });
-            if (!response.ok) throw new Error('Gagal menghapus data.');
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.msg || 'Gagal menghapus data.');
+            }
 
             hideDeleteModal();
+
             // Muat ulang data yang sesuai
-            if (type === 'struktur') await loadStrukturOrganisasi();
-            if (type === 'umkm') await loadUmkm();
+            if (type === 'struktur') {
+                await loadStrukturOrganisasi();
+            } else if (type === 'umkm') {
+                await loadUmkm();
+            } else if (type === 'produk') {
+                // Muat ulang detail UMKM yang sedang terbuka untuk refresh daftar produknya
+                if (currentOpenUmkmId) {
+                    await loadUmkmDetail(currentOpenUmkmId);
+                }
+            }
 
         } catch (error) {
             alert(error.message);
@@ -114,13 +130,16 @@ document.addEventListener('DOMContentLoaded', function () {
     };
     const hideUmkmDetailModal = () => {
         umkmModalDialog.classList.add('scale-95', 'opacity-0');
-        setTimeout(() => umkmDetailModal.classList.add('hidden'), 300);
+        setTimeout(() => {
+            umkmDetailModal.classList.add('hidden');
+            currentOpenUmkmId = null; // Reset ID UMKM saat modal ditutup
+        }, 300);
     };
 
     closeUmkmModalBtn.addEventListener('click', hideUmkmDetailModal);
 
 
-    // --- Fungsi Navigasi Tab ---
+    // --- Fungsi Navigasi Tab (Tidak ada perubahan) ---
     function switchTab(target) {
         if (target === 'struktur') {
             contentStruktur.classList.remove('hidden');
@@ -161,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!response.ok) throw new Error('Gagal memuat data struktur organisasi.');
             const data = await response.json();
 
-            strukturListContainer.innerHTML = ''; // Kosongkan container
+            strukturListContainer.innerHTML = '';
 
             if (data.length === 0) {
                 strukturListContainer.innerHTML = `<p class="text-center col-span-full">Belum ada data struktur organisasi.</p>`;
@@ -184,7 +203,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 strukturListContainer.appendChild(card);
             });
 
-            // Tambahkan event listener untuk tombol hapus
             strukturListContainer.querySelectorAll('.delete-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const id = e.currentTarget.dataset.id;
@@ -230,7 +248,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 umkmListContainer.appendChild(card);
             });
 
-            // Tambahkan event listener untuk tombol hapus dan detail
             umkmListContainer.querySelectorAll('.delete-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
                     const id = e.currentTarget.dataset.id;
@@ -250,18 +267,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // --- MODIFIKASI: Menambahkan tombol hapus di kartu produk ---
     async function loadUmkmDetail(id) {
+        currentOpenUmkmId = id; // Simpan ID UMKM yang sedang dibuka
         detailNamaUmkm.textContent = 'Memuat...';
         umkmDetailContent.innerHTML = '<div class="h-40 bg-gray-500/30 rounded-lg animate-pulse"></div>';
         showUmkmDetailModal();
 
         try {
-            // Fetch detail UMKM
             const umkmResponse = await fetch(`${API_UMKM}/${id}`);
             if (!umkmResponse.ok) throw new Error('Gagal memuat detail UMKM.');
             const umkm = await umkmResponse.json();
 
-            // Fetch produk untuk UMKM tersebut
             const produkResponse = await fetch(API_PRODUK);
             if (!produkResponse.ok) throw new Error('Gagal memuat data produk.');
             const allProduk = await produkResponse.json();
@@ -274,13 +291,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 produkHtml += '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
                 produkTerkait.forEach(p => {
                     produkHtml += `
-                        <div class="bg-black/20 p-4 rounded-lg">
+                        <div class="bg-black/20 p-4 rounded-lg flex flex-col">
                             <img src="${p.gambar_produk || 'https://via.placeholder.com/150'}" alt="${p.nama_produk}" class="w-full h-32 object-cover rounded-md mb-3">
-                            <h5 class="font-bold">${p.nama_produk}</h5>
-                            <p class="text-sm text-gray-300">${p.deskripsi_produk}</p>
+                            <div class="flex-grow">
+                                <h5 class="font-bold">${p.nama_produk}</h5>
+                                <p class="text-sm text-gray-300 mb-2">${p.deskripsi_produk}</p>
+                            </div>
                             <div class="flex justify-between items-center mt-2">
                                 <span class="text-emerald-400 font-semibold">Rp ${new Intl.NumberFormat('id-ID').format(p.harga_produk)}</span>
                                 <span class="text-xs bg-gray-500/50 px-2 py-1 rounded-full">Stok: ${p.stok_produk}</span>
+                            </div>
+                            <div class="flex justify-end gap-2 mt-4">
+                                <button class="delete-produk-btn text-xs bg-rose-500/80 hover:bg-rose-600 text-white font-semibold py-2 px-3 rounded-lg transition duration-200" data-id="${p.id_produk}" data-name="${p.nama_produk}">Hapus</button>
                             </div>
                         </div>
                     `;
@@ -299,6 +321,15 @@ document.addEventListener('DOMContentLoaded', function () {
             `;
             lucide.createIcons();
 
+            // --- MODIFIKASI: Menambahkan event listener ke tombol hapus produk ---
+            umkmDetailContent.querySelectorAll('.delete-produk-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const productId = e.currentTarget.dataset.id;
+                    const productName = e.currentTarget.dataset.name;
+                    showDeleteModal('produk', productId, productName);
+                });
+            });
+
 
         } catch (error) {
             umkmDetailContent.innerHTML = `<p class="text-center text-rose-400">${error.message}</p>`;
@@ -307,14 +338,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-    // --- Inisialisasi Halaman ---
+    // --- Inisialisasi Halaman (Tidak ada perubahan) ---
     async function initializePage() {
         await loadStrukturOrganisasi();
         await loadUmkm();
-        // Cek pesan dari local storage (jika ada)
         const message = localStorage.getItem('actionMessage');
         if (message) {
-            // Tampilkan pesan, lalu hapus dari local storage
             alert(message);
             localStorage.removeItem('actionMessage');
         }
