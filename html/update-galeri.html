@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="../logo-web.png" type="image/x-icon">
+
+    <title>Update Galeri - Desa Sangubanyu</title>
+
+    <script src="../auth.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../style.css">
+
+</head>
+
+<body class="animated-gradient">
+
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="w-full max-w-xl">
+            <div id="formContainer"
+                class="glass-effect shadow-2xl rounded-2xl p-8 text-white transition-all duration-500">
+                <div class="text-center mb-10">
+                    <div class="inline-block bg-black/20 p-4 rounded-full mb-4 border border-white/10">
+                        <i data-lucide="image" class="w-10 h-10 text-emerald-300"></i>
+                    </div>
+                    <h1 class="text-3xl font-bold tracking-wider text-shadow">Update Gambar Galeri</h1>
+                    <p class="text-emerald-200 text-sm font-light">Ubah Data Gambar</p>
+                </div>
+
+                <form id="galeriForm" novalidate>
+                    <input type="hidden" id="id_galeri" name="id_galeri">
+
+                    <div class="mb-5">
+                        <label for="deskripsi_gambar" class="sr-only">Deskripsi Gambar</label>
+                        <div class="relative">
+                            <i data-lucide="file-text"
+                                class="absolute left-4 top-5 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <textarea id="deskripsi_gambar" name="deskripsi_gambar"
+                                placeholder="Deskripsi singkat gambar" rows="3"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="url_gambar" class="sr-only">File Gambar</label>
+                        <div class="relative">
+                            <i data-lucide="image"
+                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input type="file" id="url_gambar" name="url_gambar"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-500 file:text-white hover:file:bg-emerald-600"
+                                accept="image/*">
+                        </div>
+                        <p class="text-xs text-gray-300 mt-2 ml-1">Kosongkan jika tidak ingin mengubah gambar.</p>
+                        <img id="gambar-preview" src="" alt="Preview Gambar" class="mt-4 rounded-lg max-h-40 hidden">
+                    </div>
+
+                    <div id="messageBox" class="hidden p-3 mb-4 text-sm rounded-lg text-center" role="alert">
+                        <span class="font-medium" id="messageText"></span>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold p-3.5 rounded-lg mt-6 hover:from-yellow-600 hover:to-orange-700 focus:outline-none focus:ring-4 focus:ring-yellow-300/50 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-yellow-500/30">
+                        UPDATE GAMBAR
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../update-galeri.js"></script>
+</body>
+
+</html>

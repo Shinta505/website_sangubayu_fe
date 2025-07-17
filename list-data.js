@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const API_STRUKTUR = 'https://website-sangubayu-be.vercel.app/api/struktur-organisasi';
     const API_UMKM = 'https://website-sangubayu-be.vercel.app/api/umkm';
     const API_PRODUK = 'https://website-sangubayu-be.vercel.app/api/produk';
+    const API_GALERI = 'https://website-sangubayu-be.vercel.app/api/gallery';
+
 
     // --- Elemen Umum ---
     const mainContent = document.getElementById('main-content');
@@ -20,10 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // --- Elemen Tab ---
     const tabStruktur = document.getElementById('tab-struktur');
     const tabUmkm = document.getElementById('tab-umkm');
+    const tabGaleri = document.getElementById('tab-galeri');
     const contentStruktur = document.getElementById('content-struktur');
     const contentUmkm = document.getElementById('content-umkm');
+    const contentGaleri = document.getElementById('content-galeri');
     const strukturListContainer = document.getElementById('struktur-list');
     const umkmListContainer = document.getElementById('umkm-list');
+    const galeriListContainer = document.getElementById('galeri-list');
+
 
     // --- Elemen Modal Hapus ---
     const deleteModal = document.getElementById('deleteModal');
@@ -95,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (type === 'struktur') url = `${API_STRUKTUR}/${id}`;
         if (type === 'umkm') url = `${API_UMKM}/${id}`;
         if (type === 'produk') url = `${API_PRODUK}/${id}`; // URL untuk hapus produk
+        if (type === 'galeri') url = `${API_GALERI}/${id}`;
 
         try {
             const response = await fetch(url, { method: 'DELETE' });
@@ -115,6 +122,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (currentOpenUmkmId) {
                     await loadUmkmDetail(currentOpenUmkmId);
                 }
+            } else if (type === 'galeri') {
+                await loadGaleri();
             }
 
         } catch (error) {
@@ -141,21 +150,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // --- Fungsi Navigasi Tab (Tidak ada perubahan) ---
     function switchTab(target) {
+        contentStruktur.classList.add('hidden');
+        contentUmkm.classList.add('hidden');
+        contentGaleri.classList.add('hidden');
+        tabStruktur.classList.remove('active-tab');
+        tabUmkm.classList.remove('active-tab');
+        tabGaleri.classList.remove('active-tab');
+
         if (target === 'struktur') {
             contentStruktur.classList.remove('hidden');
-            contentUmkm.classList.add('hidden');
             tabStruktur.classList.add('active-tab');
-            tabUmkm.classList.remove('active-tab');
-        } else {
-            contentStruktur.classList.add('hidden');
+        } else if (target === 'umkm') {
             contentUmkm.classList.remove('hidden');
-            tabStruktur.classList.remove('active-tab');
             tabUmkm.classList.add('active-tab');
+        } else {
+            contentGaleri.classList.remove('hidden');
+            tabGaleri.classList.add('active-tab');
         }
     }
 
     tabStruktur.addEventListener('click', () => switchTab('struktur'));
     tabUmkm.addEventListener('click', () => switchTab('umkm'));
+    tabGaleri.addEventListener('click', () => switchTab('galeri'));
 
     // --- Fungsi untuk memuat dan menampilkan data ---
 
@@ -269,6 +285,49 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    async function loadGaleri() {
+        createPlaceholder(galeriListContainer);
+        try {
+            const response = await fetch(API_GALERI);
+            if (!response.ok) throw new Error('Gagal memuat data galeri.');
+            const data = await response.json();
+
+            galeriListContainer.innerHTML = '';
+
+            if (data.length === 0) {
+                galeriListContainer.innerHTML = `<p class="text-center col-span-full">Belum ada data galeri.</p>`;
+                return;
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'glass-effect p-5 rounded-xl flex flex-col justify-between';
+                card.innerHTML = `
+                    <div>
+                        <img src="${item.url_gambar}" alt="${item.deskripsi_gambar}" class="w-full h-48 object-cover rounded-lg mb-4">
+                        <p class="text-gray-300 text-sm">${item.deskripsi_gambar || 'Tidak ada deskripsi.'}</p>
+                    </div>
+                    <div class="flex justify-end gap-3 mt-4">
+                        <a href="update-galeri.html?id=${item.id_gallery}" class="edit-btn bg-yellow-500/80 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">Edit</a>
+                        <button class="delete-btn bg-rose-500/80 hover:bg-rose-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200" data-id="${item.id_gallery}" data-name="gambar ini">Hapus</button>
+                    </div>
+                `;
+                galeriListContainer.appendChild(card);
+            });
+
+            galeriListContainer.querySelectorAll('.delete-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    const name = e.currentTarget.dataset.name;
+                    showDeleteModal('galeri', id, name);
+                });
+            });
+
+        } catch (error) {
+            galeriListContainer.innerHTML = `<p class="text-center col-span-full text-rose-400">${error.message}</p>`;
+        }
+    }
+
     // --- MODIFIKASI: Menambahkan tombol hapus di kartu produk ---
     async function loadUmkmDetail(id) {
         currentOpenUmkmId = id; // Simpan ID UMKM yang sedang dibuka
@@ -345,6 +404,7 @@ document.addEventListener('DOMContentLoaded', function () {
     async function initializePage() {
         await loadStrukturOrganisasi();
         await loadUmkm();
+        await loadGaleri();
         const message = localStorage.getItem('actionMessage');
         if (message) {
             alert(message);

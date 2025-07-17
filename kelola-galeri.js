@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const messageText = document.getElementById('messageText');
     const submitButton = galleryForm.querySelector('button[type="submit"]');
 
-    const namaGambarInput = document.getElementById('nama_gambar');
+    // HAPUS: Variabel namaGambarInput dihapus karena elemennya tidak ada di HTML
+    // const namaGambarInput = document.getElementById('nama_gambar'); 
     const deskripsiGambarInput = document.getElementById('deskripsi_gambar');
     const urlGambarInput = document.getElementById('url_gambar');
 
@@ -87,8 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
     galleryForm.addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        if (!namaGambarInput.value.trim() || !urlGambarInput.files[0]) {
-            showMessage('error', 'Nama Gambar and File Gambar wajib diisi.');
+        // UBAH: Validasi diubah, hanya memeriksa apakah file gambar sudah diisi
+        if (!urlGambarInput.files[0]) {
+            showMessage('error', 'File Gambar wajib diisi.');
             return;
         }
 
@@ -97,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.textContent = 'MENYIMPAN...';
 
         const formData = new FormData();
-        formData.append('nama_gambar', namaGambarInput.value.trim());
         formData.append('deskripsi_gambar', deskripsiGambarInput.value.trim());
         formData.append('url_gambar', urlGambarInput.files[0]);
 

@@ -2,10 +2,9 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-ar">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon -->
     <link rel="icon" href="../logo-web.png" type="image/x-icon">
 
     <title>Daftar Data - Desa Sangubanyu</title>
@@ -41,7 +40,7 @@
                 <li><a href="kelola-produk-umkm.html" class="sidebar-link"><i data-lucide="package"
                             class="w-5 h-5"></i><span>Kelola Produk UMKM</span></a></li>
                 <li><a href="list-data.html" class="sidebar-link sidebar-link-active"><i data-lucide="list"
-                            class="w-5 h-5"></i><span>List Struktur & UMKM</span></a></li>
+                            class="w-5 h-5"></i><span>List Data</span></a></li>
                 <li><a href="kelola-galeri.html" class="sidebar-link"><i data-lucide="image"
                             class="w-5 h-5"></i><span>Kelola Galeri</span></a>
                 </li>
@@ -70,6 +69,11 @@
                             <i data-lucide="store" class="mr-2"></i>
                             UMKM & Produk
                         </button>
+                        <button id="tab-galeri"
+                            class="tab-button group inline-flex items-center py-3 px-4 text-sm font-medium">
+                            <i data-lucide="image" class="mr-2"></i>
+                            Galeri
+                        </button>
                     </nav>
                 </div>
 
@@ -95,6 +99,18 @@
                             </a>
                         </div>
                         <div id="umkm-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        </div>
+                    </div>
+
+                    <div id="content-galeri" class="hidden">
+                        <div class="flex justify-between items-center mb-5">
+                            <h2 class="text-2xl font-bold">Daftar Galeri</h2>
+                            <a href="kelola-galeri.html"
+                                class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition duration-200 flex items-center">
+                                <i data-lucide="plus" class="w-5 h-5 mr-2"></i> Tambah Gambar
+                            </a>
+                        </div>
+                        <div id="galeri-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         </div>
                     </div>
                 </div>
