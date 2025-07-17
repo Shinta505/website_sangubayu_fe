@@ -5,10 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Favicon -->
     <link rel="icon" href="../logo-web.png" type="image/x-icon">
-    
-    <title>Kelola UMKM - Desa Sangubanyu</title>
+
+    <title>Kelola Galeri - Desa Sangubanyu</title>
 
     <script src="../auth.js"></script>
 
@@ -49,7 +48,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="kelola-umkm.html" class="sidebar-link sidebar-link-active">
+                    <a href="kelola-umkm.html" class="sidebar-link">
                         <i data-lucide="store" class="w-5 h-5"></i>
                         <span>Kelola UMKM</span>
                     </a>
@@ -67,7 +66,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="kelola-galeri.html" class="sidebar-link">
+                    <a href="kelola-galeri.html" class="sidebar-link sidebar-link-active">
                         <i data-lucide="image" class="w-5 h-5"></i>
                         <span>Kelola Galeri</span>
                     </a>
@@ -95,79 +94,33 @@
 
                 <div class="text-center mb-10">
                     <div class="inline-block bg-black/20 p-4 rounded-full mb-4 border border-white/10">
-                        <i data-lucide="store" class="w-10 h-10 text-emerald-300"></i>
+                        <i data-lucide="image" class="w-10 h-10 text-emerald-300"></i>
                     </div>
-                    <h1 class="text-3xl font-bold tracking-wider text-shadow">Kelola UMKM</h1>
-                    <p class="text-emerald-200 text-sm font-light">Tambah Data UMKM Baru</p>
+                    <h1 class="text-3xl font-bold tracking-wider text-shadow">Kelola Galeri</h1>
+                    <p class="text-emerald-200 text-sm font-light">Tambah Gambar Baru</p>
                 </div>
 
-                <form id="umkmForm" novalidate>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="mb-5">
-                            <label for="nama_umkm" class="sr-only">Nama UMKM</label>
-                            <div class="relative">
-                                <i data-lucide="store"
-                                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                                <input type="text" id="nama_umkm" name="nama_umkm" placeholder="Nama UMKM"
-                                    class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
-                                    required>
-                            </div>
-                        </div>
-
-                        <div class="mb-5">
-                            <label for="pemilik_umkm" class="sr-only">Nama Pemilik</label>
-                            <div class="relative">
-                                <i data-lucide="user"
-                                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                                <input type="text" id="pemilik_umkm" name="pemilik_umkm" placeholder="Nama Pemilik"
-                                    class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"
-                                    required>
-                            </div>
+                <form id="galleryForm" novalidate>
+                    <div class="mb-5">
+                        <label for="deskripsi_gambar" class="sr-only">Deskripsi Gambar</label>
+                        <div class="relative">
+                            <i data-lucide="file-text"
+                                class="absolute left-4 top-5 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <textarea id="deskripsi_gambar" name="deskripsi_gambar"
+                                placeholder="Deskripsi singkat gambar" rows="3"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"></textarea>
                         </div>
                     </div>
 
                     <div class="mb-5">
-                        <label for="deskripsi_umkm" class="sr-only">Deskripsi UMKM</label>
+                        <label for="url_gambar" class="sr-only">File Gambar</label>
                         <div class="relative">
-                            <i data-lucide="file-text"
-                                class="absolute left-4 top-5 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                            <textarea id="deskripsi_umkm" name="deskripsi_umkm" placeholder="Deskripsi singkat UMKM"
-                                rows="3"
-                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"></textarea>
+                            <i data-lucide="image"
+                                class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
+                            <input type="file" id="url_gambar" name="url_gambar"
+                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-500 file:text-white hover:file:bg-emerald-600"
+                                required>
                         </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div class="mb-5">
-                            <label for="alamat_umkm" class="sr-only">Alamat UMKM</label>
-                            <div class="relative">
-                                <i data-lucide="map-pin"
-                                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                                <input type="text" id="alamat_umkm" name="alamat_umkm" placeholder="Alamat Lengkap"
-                                    class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow">
-                            </div>
-                        </div>
-
-                        <div class="mb-1"> <label for="kontak_umkm" class="sr-only">Kontak (No. HP/WA)</label>
-                            <div class="relative">
-                                <i data-lucide="phone"
-                                    class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                                <input type="tel" id="kontak_umkm" name="kontak_umkm" placeholder="Kontak (No. HP/WA)"
-                                    class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow">
-                            </div>
-                            <p class="text-xs text-gray-300 mt-2 ml-1">Gunakan format 62, contoh: 6281234567890</p>
-                        </div>
-                    </div>
-
-                    <div class="mb-5 mt-5"> <label for="peta_umkm" class="sr-only">Embed Peta Google Maps</label>
-                        <div class="relative">
-                            <i data-lucide="map"
-                                class="absolute left-4 top-5 transform -translate-y-1/2 text-gray-300 w-5 h-5"></i>
-                            <textarea id="peta_umkm" name="peta_umkm" placeholder="Sematkan kode iframe Google Maps"
-                                rows="3"
-                                class="w-full bg-black/20 border border-transparent rounded-lg p-3 pl-12 focus:outline-none transition duration-300 placeholder-gray-300 input-focus-glow"></textarea>
-                        </div>
-                        <p class="text-xs text-gray-300 mt-2 ml-1">Opsional. Tempel kode iframe dari Google Maps.</p>
                     </div>
 
                     <div id="messageBox" class="hidden p-3 mb-4 text-sm rounded-lg text-center" role="alert">
@@ -176,7 +129,7 @@
 
                     <button type="submit"
                         class="w-full bg-gradient-to-r from-emerald-500 to-green-600 text-white font-bold p-3.5 rounded-lg mt-6 hover:from-emerald-600 hover:to-green-700 focus:outline-none focus:ring-4 focus:ring-emerald-300/50 transition-all duration-300 transform hover:scale-105 shadow-lg shadow-emerald-500/30">
-                        SIMPAN DATA UMKM
+                        SIMPAN GAMBAR
                     </button>
                 </form>
 
@@ -203,7 +156,7 @@
         </div>
     </div>
 
-    <script src="../kelola-umkm.js"></script>
+    <script src="../kelola-galeri.js"></script>
 
 </body>
 
